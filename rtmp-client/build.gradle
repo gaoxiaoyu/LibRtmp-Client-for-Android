@@ -3,16 +3,32 @@ apply plugin: "com.android.library"
 //==============================JitPack 上传插件配置 start=====================
 apply plugin: 'com.github.dcendents.android-maven'
 group='com.github.gaoxiaoyu'
+version = '1.0'
+
 buildscript {
     repositories {
+        google()
+        mavenCentral()
         jcenter()
     }
     dependencies {
-        classpath 'com.github.dcendents:android-maven-gradle-plugin:4.2.2'
+        classpath 'com.github.dcendents:android-maven-gradle-plugin:2.1'
     }
 }
 
-
+afterEvaluate {
+    publishing {
+        publications {
+            // Creates a Maven publication called "release".
+            release(MavenPublication) {
+                from components.release
+                groupId = 'com.github.gaoxiaoyu'
+                artifactId = 'LibRtmp-Client-for-Android'
+                version = '1.0'
+            }
+        }
+    }
+}
 
 android {
     compileSdkVersion  29 // sdk level 21 lets ndk generate resources for archs such as arm64.
@@ -152,7 +168,3 @@ afterEvaluate {
 
 //How to upload
 //./gradlew clean build publish
-
-
-
-
