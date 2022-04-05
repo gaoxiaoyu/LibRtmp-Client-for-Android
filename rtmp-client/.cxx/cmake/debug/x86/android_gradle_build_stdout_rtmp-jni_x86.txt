@@ -1,2 +1,10 @@
 ninja: Entering directory `C:\Code\github\LibRtmp-Client-for-Android\rtmp-client\.cxx\cmake\debug\x86'
-ninja: no work to do.
+[1/2] Building C object CMakeFiles/rtmp-jni.dir/src/main/cpp/librtmp/rtmp.c.o
+../../../../src/main/cpp/librtmp/rtmp.c:5146:19: warning: incompatible pointer types passing 'RTMP *' (aka 'struct RTMP *') to parameter of type 'RTMPPacket *' (aka 'struct RTMPPacket *') [-Wincompatible-pointer-types]
+  RTMPPacket_Dump(r);
+                  ^
+../../../../src/main/cpp/librtmp/rtmp.c:208:29: note: passing argument to parameter 'p' here
+RTMPPacket_Dump(RTMPPacket *p)
+                            ^
+1 warning generated.
+[2/2] Linking C shared library ..\..\..\..\build\intermediates\cmake\debug\obj\x86\librtmp-jni.so

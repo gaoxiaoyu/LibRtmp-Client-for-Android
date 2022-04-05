@@ -13,3 +13,5 @@
 4	111	670862815	CMakeFiles/rtmp-jni.dir/src/main/cpp/flvmuxer/xiecc_rtmp.c.o	45627a1a647205e8
 2	354	670862816	CMakeFiles/rtmp-jni.dir/src/main/cpp/librtmp/rtmp.c.o	b23137b4bf092e45
 354	414	670862816	../../../../build/intermediates/cmake/debug/obj/arm64-v8a/librtmp-jni.so	122916245e4dc3ea
+3	395	670863237	CMakeFiles/rtmp-jni.dir/src/main/cpp/librtmp/rtmp.c.o	b23137b4bf092e45
+395	467	670863237	../../../../build/intermediates/cmake/debug/obj/arm64-v8a/librtmp-jni.so	122916245e4dc3ea

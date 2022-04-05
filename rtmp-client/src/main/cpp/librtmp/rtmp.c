@@ -208,9 +208,10 @@ void
 RTMPPacket_Dump(RTMPPacket *p)
 {
   RTMP_Log(RTMP_LOGDEBUG,
-      "RTMP PACKET: packet type: 0x%02x. channel: 0x%02x. info 1: %d info 2: %d. Body size: %u. body: 0x%02x",
+  //    "RTMP PACKET: packet type: 0x%02x. channel: 0x%02x. info 1: %d info 2: %d. Body size: %u. body: 0x%02x",
+  "RTMP PACKET: packet type: 0x%02x. channel: 0x%02x. info 1: %d info 2: %d. Body size: %u.",
       p->m_packetType, p->m_nChannel, p->m_nTimeStamp, p->m_nInfoField2,
-      p->m_nBodySize, p->m_body ? (unsigned char)p->m_body[0] : 0);
+      p->m_nBodySize);
 }
 
 int
