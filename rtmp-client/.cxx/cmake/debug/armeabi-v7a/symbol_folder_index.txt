@@ -1,0 +1,1 @@
+C:\Code\github\LibRtmp-Client-for-Android\rtmp-client\build\intermediates\cmake\debug\obj\armeabi-v7a

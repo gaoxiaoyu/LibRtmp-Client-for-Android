@@ -1,0 +1,25 @@
+                    Executable : C:\Users\ericgao\AppData\Local\Android\Sdk\cmake\3.10.2.4988404\bin\cmake.exe
+arguments : 
+-HC:\Code\github\LibRtmp-Client-for-Android\rtmp-client
+-DCMAKE_CXX_FLAGS=-frtti -fexceptions
+-DCMAKE_FIND_ROOT_PATH=C:\Code\github\LibRtmp-Client-for-Android\rtmp-client\.cxx\cmake\debug\prefab\armeabi-v7a\prefab
+-DCMAKE_BUILD_TYPE=Debug
+-DCMAKE_TOOLCHAIN_FILE=C:\Users\ericgao\AppData\Local\Android\Sdk\ndk\21.4.7075529\build\cmake\android.toolchain.cmake
+-DANDROID_ABI=armeabi-v7a
+-DANDROID_NDK=C:\Users\ericgao\AppData\Local\Android\Sdk\ndk\21.4.7075529
+-DCMAKE_ANDROID_ARCH_ABI=armeabi-v7a
+-DCMAKE_ANDROID_NDK=C:\Users\ericgao\AppData\Local\Android\Sdk\ndk\21.4.7075529
+-DCMAKE_EXPORT_COMPILE_COMMANDS=ON
+-DCMAKE_LIBRARY_OUTPUT_DIRECTORY=C:\Code\github\LibRtmp-Client-for-Android\rtmp-client\build\intermediates\cmake\debug\obj\armeabi-v7a
+-DCMAKE_RUNTIME_OUTPUT_DIRECTORY=C:\Code\github\LibRtmp-Client-for-Android\rtmp-client\build\intermediates\cmake\debug\obj\armeabi-v7a
+-DCMAKE_MAKE_PROGRAM=C:\Users\ericgao\AppData\Local\Android\Sdk\cmake\3.10.2.4988404\bin\ninja.exe
+-DCMAKE_SYSTEM_NAME=Android
+-DCMAKE_SYSTEM_VERSION=16
+-DANDROID_PLATFORM=android-15
+-BC:\Code\github\LibRtmp-Client-for-Android\rtmp-client\.cxx\cmake\debug\armeabi-v7a
+-GNinja
+jvmArgs : 
+
+
+                    Build command args: []
+                    Version: 1

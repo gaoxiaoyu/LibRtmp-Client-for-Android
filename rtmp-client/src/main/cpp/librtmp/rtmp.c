@@ -5142,6 +5142,7 @@ static const AVal av_setDataFrame = AVC("@setDataFrame");
 int
 RTMP_Write(RTMP *r, const char *buf, int size)
 {
+  RTMPPacket_Dump(r);
   RTMPPacket *pkt = &r->m_write;
   char *pend, *enc;
   int s2 = size, ret, num;

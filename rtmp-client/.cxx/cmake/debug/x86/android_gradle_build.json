@@ -1,0 +1,40 @@
+{
+  "stringTable": {},
+  "buildFiles": [
+    "C:\\Code\\github\\LibRtmp-Client-for-Android\\rtmp-client\\CMakeLists.txt"
+  ],
+  "cleanCommandsComponents": [
+    [
+      "C:\\Users\\ericgao\\AppData\\Local\\Android\\Sdk\\cmake\\3.10.2.4988404\\bin\\ninja.exe",
+      "-C",
+      "C:\\Code\\github\\LibRtmp-Client-for-Android\\rtmp-client\\.cxx\\cmake\\debug\\x86",
+      "clean"
+    ]
+  ],
+  "buildTargetsCommandComponents": [
+    "C:\\Users\\ericgao\\AppData\\Local\\Android\\Sdk\\cmake\\3.10.2.4988404\\bin\\ninja.exe",
+    "-C",
+    "C:\\Code\\github\\LibRtmp-Client-for-Android\\rtmp-client\\.cxx\\cmake\\debug\\x86",
+    "{LIST_OF_TARGETS_TO_BUILD}"
+  ],
+  "libraries": {
+    "rtmp-jni-Debug-x86": {
+      "buildCommandComponents": [
+        "C:\\Users\\ericgao\\AppData\\Local\\Android\\Sdk\\cmake\\3.10.2.4988404\\bin\\ninja.exe",
+        "-C",
+        "C:\\Code\\github\\LibRtmp-Client-for-Android\\rtmp-client\\.cxx\\cmake\\debug\\x86",
+        "rtmp-jni"
+      ],
+      "buildType": "debug",
+      "abi": "x86",
+      "artifactName": "rtmp-jni",
+      "output": "C:\\Code\\github\\LibRtmp-Client-for-Android\\rtmp-client\\build\\intermediates\\cmake\\debug\\obj\\x86\\librtmp-jni.so",
+      "runtimeFiles": []
+    }
+  },
+  "toolchains": {},
+  "cFileExtensions": [
+    "c"
+  ],
+  "cppFileExtensions": []
+}

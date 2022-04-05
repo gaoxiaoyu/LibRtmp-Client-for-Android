@@ -261,6 +261,7 @@ int rtmp_sender_write_audio_frame(uint8_t *data,
 
     //Audio OUTPUT
     offset = 0;
+    LOGD("rtmp_sender_write_audio_frame,input size=%d, dts_us=%l,audio_ts=%d",size,dts_us,audio_ts);
 
     if (audio_config_ok == false) {
         // first packet is two bytes AudioSpecificConfig
@@ -301,6 +302,8 @@ int rtmp_sender_write_audio_frame(uint8_t *data,
 
         if (g_file_handle) {
             fwrite(output, output_len, 1, g_file_handle);
+            char test[16] = "this is testing";
+            fwrite(test, 16,1,g_file_handle);
         }
         val = RTMP_Write(rtmp, output, output_len);
         free(output);

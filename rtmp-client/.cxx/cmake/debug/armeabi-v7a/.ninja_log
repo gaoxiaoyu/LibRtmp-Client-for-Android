@@ -1,0 +1,15 @@
+# ninja log v5
+1	321	670830388	CMakeFiles/rtmp-jni.dir/src/main/cpp/rtmpmuxer.c.o	21f9c9ec700d3c6
+4	336	670830388	CMakeFiles/rtmp-jni.dir/src/main/cpp/librtmp-jni.c.o	ddc6143f4d13e6bf
+20	372	670830388	CMakeFiles/rtmp-jni.dir/src/main/cpp/flvmuxer/xiecc_rtmp.c.o	143c47d93705c9c2
+16	571	670830388	CMakeFiles/rtmp-jni.dir/src/main/cpp/librtmp/log.c.o	d7bb7d8c69adb55b
+8	583	670830388	CMakeFiles/rtmp-jni.dir/src/main/cpp/librtmp/parseurl.c.o	1fd7ca4c3454c343
+11	592	670830388	CMakeFiles/rtmp-jni.dir/src/main/cpp/librtmp/hashswf.c.o	85bd8ec04a91fbe7
+6	638	670830388	CMakeFiles/rtmp-jni.dir/src/main/cpp/librtmp/amf.c.o	89a8a74e0e5c49fb
+14	770	670830389	CMakeFiles/rtmp-jni.dir/src/main/cpp/librtmp/rtmp.c.o	1bd7e65c7abfb50a
+770	841	670830389	../../../../build/intermediates/cmake/debug/obj/armeabi-v7a/librtmp-jni.so	f2e7095206adb141
+2	136	670862534	CMakeFiles/rtmp-jni.dir/src/main/cpp/flvmuxer/xiecc_rtmp.c.o	143c47d93705c9c2
+136	327	670862534	../../../../build/intermediates/cmake/debug/obj/armeabi-v7a/librtmp-jni.so	f2e7095206adb141
+6	538	670862804	CMakeFiles/rtmp-jni.dir/src/main/cpp/librtmp/rtmp.c.o	1bd7e65c7abfb50a
+3	121	670862815	CMakeFiles/rtmp-jni.dir/src/main/cpp/flvmuxer/xiecc_rtmp.c.o	143c47d93705c9c2
+121	188	670862815	../../../../build/intermediates/cmake/debug/obj/armeabi-v7a/librtmp-jni.so	f2e7095206adb141
