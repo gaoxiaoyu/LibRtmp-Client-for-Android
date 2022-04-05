@@ -1,0 +1,3 @@
+C:/Code/github/LibRtmp-Client-for-Android/rtmp-client/.cxx/cmake/release/x86/CMakeFiles/rtmp-jni.dir
+C:/Code/github/LibRtmp-Client-for-Android/rtmp-client/.cxx/cmake/release/x86/CMakeFiles/edit_cache.dir
+C:/Code/github/LibRtmp-Client-for-Android/rtmp-client/.cxx/cmake/release/x86/CMakeFiles/rebuild_cache.dir

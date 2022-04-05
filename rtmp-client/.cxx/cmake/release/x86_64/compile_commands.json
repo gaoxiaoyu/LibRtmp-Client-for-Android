@@ -1,0 +1,49 @@
+[
+{
+  "directory": "C:/Code/github/LibRtmp-Client-for-Android/rtmp-client/.cxx/cmake/release/x86_64",
+  "command": "C:\\Users\\ericgao\\AppData\\Local\\Android\\Sdk\\ndk\\21.4.7075529\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang.exe --target=x86_64-none-linux-android21 --gcc-toolchain=C:/Users/ericgao/AppData/Local/Android/Sdk/ndk/21.4.7075529/toolchains/llvm/prebuilt/windows-x86_64 --sysroot=C:/Users/ericgao/AppData/Local/Android/Sdk/ndk/21.4.7075529/toolchains/llvm/prebuilt/windows-x86_64/sysroot -DNO_CRYPTO -Drtmp_jni_EXPORTS -I../../../../src/main/cpp/librtmp  -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security  -O2 -DNDEBUG  -fPIC   -o CMakeFiles\\rtmp-jni.dir\\src\\main\\cpp\\rtmpmuxer.c.o   -c C:\\Code\\github\\LibRtmp-Client-for-Android\\rtmp-client\\src\\main\\cpp\\rtmpmuxer.c",
+  "file": "C:/Code/github/LibRtmp-Client-for-Android/rtmp-client/src/main/cpp/rtmpmuxer.c"
+},
+
+{
+  "directory": "C:/Code/github/LibRtmp-Client-for-Android/rtmp-client/.cxx/cmake/release/x86_64",
+  "command": "C:\\Users\\ericgao\\AppData\\Local\\Android\\Sdk\\ndk\\21.4.7075529\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang.exe --target=x86_64-none-linux-android21 --gcc-toolchain=C:/Users/ericgao/AppData/Local/Android/Sdk/ndk/21.4.7075529/toolchains/llvm/prebuilt/windows-x86_64 --sysroot=C:/Users/ericgao/AppData/Local/Android/Sdk/ndk/21.4.7075529/toolchains/llvm/prebuilt/windows-x86_64/sysroot -DNO_CRYPTO -Drtmp_jni_EXPORTS -I../../../../src/main/cpp/librtmp  -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security  -O2 -DNDEBUG  -fPIC   -o CMakeFiles\\rtmp-jni.dir\\src\\main\\cpp\\librtmp-jni.c.o   -c C:\\Code\\github\\LibRtmp-Client-for-Android\\rtmp-client\\src\\main\\cpp\\librtmp-jni.c",
+  "file": "C:/Code/github/LibRtmp-Client-for-Android/rtmp-client/src/main/cpp/librtmp-jni.c"
+},
+
+{
+  "directory": "C:/Code/github/LibRtmp-Client-for-Android/rtmp-client/.cxx/cmake/release/x86_64",
+  "command": "C:\\Users\\ericgao\\AppData\\Local\\Android\\Sdk\\ndk\\21.4.7075529\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang.exe --target=x86_64-none-linux-android21 --gcc-toolchain=C:/Users/ericgao/AppData/Local/Android/Sdk/ndk/21.4.7075529/toolchains/llvm/prebuilt/windows-x86_64 --sysroot=C:/Users/ericgao/AppData/Local/Android/Sdk/ndk/21.4.7075529/toolchains/llvm/prebuilt/windows-x86_64/sysroot -DNO_CRYPTO -Drtmp_jni_EXPORTS -I../../../../src/main/cpp/librtmp  -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security  -O2 -DNDEBUG  -fPIC   -o CMakeFiles\\rtmp-jni.dir\\src\\main\\cpp\\librtmp\\amf.c.o   -c C:\\Code\\github\\LibRtmp-Client-for-Android\\rtmp-client\\src\\main\\cpp\\librtmp\\amf.c",
+  "file": "C:/Code/github/LibRtmp-Client-for-Android/rtmp-client/src/main/cpp/librtmp/amf.c"
+},
+
+{
+  "directory": "C:/Code/github/LibRtmp-Client-for-Android/rtmp-client/.cxx/cmake/release/x86_64",
+  "command": "C:\\Users\\ericgao\\AppData\\Local\\Android\\Sdk\\ndk\\21.4.7075529\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang.exe --target=x86_64-none-linux-android21 --gcc-toolchain=C:/Users/ericgao/AppData/Local/Android/Sdk/ndk/21.4.7075529/toolchains/llvm/prebuilt/windows-x86_64 --sysroot=C:/Users/ericgao/AppData/Local/Android/Sdk/ndk/21.4.7075529/toolchains/llvm/prebuilt/windows-x86_64/sysroot -DNO_CRYPTO -Drtmp_jni_EXPORTS -I../../../../src/main/cpp/librtmp  -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security  -O2 -DNDEBUG  -fPIC   -o CMakeFiles\\rtmp-jni.dir\\src\\main\\cpp\\librtmp\\hashswf.c.o   -c C:\\Code\\github\\LibRtmp-Client-for-Android\\rtmp-client\\src\\main\\cpp\\librtmp\\hashswf.c",
+  "file": "C:/Code/github/LibRtmp-Client-for-Android/rtmp-client/src/main/cpp/librtmp/hashswf.c"
+},
+
+{
+  "directory": "C:/Code/github/LibRtmp-Client-for-Android/rtmp-client/.cxx/cmake/release/x86_64",
+  "command": "C:\\Users\\ericgao\\AppData\\Local\\Android\\Sdk\\ndk\\21.4.7075529\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang.exe --target=x86_64-none-linux-android21 --gcc-toolchain=C:/Users/ericgao/AppData/Local/Android/Sdk/ndk/21.4.7075529/toolchains/llvm/prebuilt/windows-x86_64 --sysroot=C:/Users/ericgao/AppData/Local/Android/Sdk/ndk/21.4.7075529/toolchains/llvm/prebuilt/windows-x86_64/sysroot -DNO_CRYPTO -Drtmp_jni_EXPORTS -I../../../../src/main/cpp/librtmp  -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security  -O2 -DNDEBUG  -fPIC   -o CMakeFiles\\rtmp-jni.dir\\src\\main\\cpp\\librtmp\\log.c.o   -c C:\\Code\\github\\LibRtmp-Client-for-Android\\rtmp-client\\src\\main\\cpp\\librtmp\\log.c",
+  "file": "C:/Code/github/LibRtmp-Client-for-Android/rtmp-client/src/main/cpp/librtmp/log.c"
+},
+
+{
+  "directory": "C:/Code/github/LibRtmp-Client-for-Android/rtmp-client/.cxx/cmake/release/x86_64",
+  "command": "C:\\Users\\ericgao\\AppData\\Local\\Android\\Sdk\\ndk\\21.4.7075529\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang.exe --target=x86_64-none-linux-android21 --gcc-toolchain=C:/Users/ericgao/AppData/Local/Android/Sdk/ndk/21.4.7075529/toolchains/llvm/prebuilt/windows-x86_64 --sysroot=C:/Users/ericgao/AppData/Local/Android/Sdk/ndk/21.4.7075529/toolchains/llvm/prebuilt/windows-x86_64/sysroot -DNO_CRYPTO -Drtmp_jni_EXPORTS -I../../../../src/main/cpp/librtmp  -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security  -O2 -DNDEBUG  -fPIC   -o CMakeFiles\\rtmp-jni.dir\\src\\main\\cpp\\librtmp\\parseurl.c.o   -c C:\\Code\\github\\LibRtmp-Client-for-Android\\rtmp-client\\src\\main\\cpp\\librtmp\\parseurl.c",
+  "file": "C:/Code/github/LibRtmp-Client-for-Android/rtmp-client/src/main/cpp/librtmp/parseurl.c"
+},
+
+{
+  "directory": "C:/Code/github/LibRtmp-Client-for-Android/rtmp-client/.cxx/cmake/release/x86_64",
+  "command": "C:\\Users\\ericgao\\AppData\\Local\\Android\\Sdk\\ndk\\21.4.7075529\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang.exe --target=x86_64-none-linux-android21 --gcc-toolchain=C:/Users/ericgao/AppData/Local/Android/Sdk/ndk/21.4.7075529/toolchains/llvm/prebuilt/windows-x86_64 --sysroot=C:/Users/ericgao/AppData/Local/Android/Sdk/ndk/21.4.7075529/toolchains/llvm/prebuilt/windows-x86_64/sysroot -DNO_CRYPTO -Drtmp_jni_EXPORTS -I../../../../src/main/cpp/librtmp  -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security  -O2 -DNDEBUG  -fPIC   -o CMakeFiles\\rtmp-jni.dir\\src\\main\\cpp\\librtmp\\rtmp.c.o   -c C:\\Code\\github\\LibRtmp-Client-for-Android\\rtmp-client\\src\\main\\cpp\\librtmp\\rtmp.c",
+  "file": "C:/Code/github/LibRtmp-Client-for-Android/rtmp-client/src/main/cpp/librtmp/rtmp.c"
+},
+
+{
+  "directory": "C:/Code/github/LibRtmp-Client-for-Android/rtmp-client/.cxx/cmake/release/x86_64",
+  "command": "C:\\Users\\ericgao\\AppData\\Local\\Android\\Sdk\\ndk\\21.4.7075529\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang.exe --target=x86_64-none-linux-android21 --gcc-toolchain=C:/Users/ericgao/AppData/Local/Android/Sdk/ndk/21.4.7075529/toolchains/llvm/prebuilt/windows-x86_64 --sysroot=C:/Users/ericgao/AppData/Local/Android/Sdk/ndk/21.4.7075529/toolchains/llvm/prebuilt/windows-x86_64/sysroot -DNO_CRYPTO -Drtmp_jni_EXPORTS -I../../../../src/main/cpp/librtmp  -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security  -O2 -DNDEBUG  -fPIC   -o CMakeFiles\\rtmp-jni.dir\\src\\main\\cpp\\flvmuxer\\xiecc_rtmp.c.o   -c C:\\Code\\github\\LibRtmp-Client-for-Android\\rtmp-client\\src\\main\\cpp\\flvmuxer\\xiecc_rtmp.c",
+  "file": "C:/Code/github/LibRtmp-Client-for-Android/rtmp-client/src/main/cpp/flvmuxer/xiecc_rtmp.c"
+}
+]
