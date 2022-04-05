@@ -1,7 +1,0 @@
-Executable : C:\Users\ericgao\AppData\Local\Android\Sdk\cmake\3.10.2.4988404\bin\ninja.exe
-arguments : 
--C
-C:\Code\github\LibRtmp-Client-for-Android\rtmp-client\.cxx\cmake\debug\x86_64
-rtmp-jni
-jvmArgs : 
-
