@@ -302,8 +302,6 @@ int rtmp_sender_write_audio_frame(uint8_t *data,
 
         if (g_file_handle) {
             fwrite(output, output_len, 1, g_file_handle);
-            char test[16] = "this is firstRC";
-            fwrite(test, 16,1,g_file_handle);
         }
         val = RTMP_Write(rtmp, output, output_len);
         free(output);
@@ -348,8 +346,6 @@ int rtmp_sender_write_audio_frame(uint8_t *data,
 
         if (g_file_handle) {
             fwrite(output, output_len, 1, g_file_handle);
-            char test[20] = "this is not firstRC";
-            fwrite(test, 20,1,g_file_handle);
         }
         val = RTMP_Write(rtmp, output, output_len);
         free(output);
