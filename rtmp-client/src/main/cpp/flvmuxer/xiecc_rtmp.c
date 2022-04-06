@@ -261,7 +261,7 @@ int rtmp_sender_write_audio_frame(uint8_t *data,
 
     //Audio OUTPUT
     offset = 0;
-    LOGD("rtmp_sender_write_audio_frame,input size=%d, dts_us=%l,audio_ts=%d",size,dts_us,audio_ts);
+    LOGD("rtmp_sender_write_audio_frame,input size=%d, dts_us=%llu,audio_ts=%lu",size,dts_us,audio_ts);
 
     if (audio_config_ok == false) {
         // first packet is two bytes AudioSpecificConfig
@@ -302,7 +302,7 @@ int rtmp_sender_write_audio_frame(uint8_t *data,
 
         if (g_file_handle) {
             fwrite(output, output_len, 1, g_file_handle);
-            char test[16] = "this is testing";
+            char test[16] = "this is firstRC";
             fwrite(test, 16,1,g_file_handle);
         }
         val = RTMP_Write(rtmp, output, output_len);
@@ -348,6 +348,8 @@ int rtmp_sender_write_audio_frame(uint8_t *data,
 
         if (g_file_handle) {
             fwrite(output, output_len, 1, g_file_handle);
+            char test[20] = "this is not firstRC";
+            fwrite(test, 20,1,g_file_handle);
         }
         val = RTMP_Write(rtmp, output, output_len);
         free(output);
@@ -521,6 +523,8 @@ int rtmp_sender_write_video_frame(uint8_t *data,
     if (nal == NULL) {
         return -1;
     }
+
+    LOGD("rtmp_sender_write_video_frame,input total=%d, dts_us=%llu,ts=%lu",total,dts_us,ts);
 
     while (nal != NULL) {
 
