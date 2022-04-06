@@ -652,16 +652,24 @@ int rtmp_sender_write_video_frame(uint8_t *data,
 
             //no need set pre_tag_size ,RTMP NO NEED
 
-            uint32_t fff = body_len + FLV_TAG_HEAD_LEN;
+            uint32_t fff = offset;
             output[offset++] = (uint8_t)(fff >> 24); //data len
             output[offset++] = (uint8_t)(fff >> 16); //data len
             output[offset++] = (uint8_t)(fff >> 8); //data len
             output[offset++] = (uint8_t)(fff); //data len
 
-            if (g_file_handle) {
-                fwrite(output, output_len, 1, g_file_handle);
+            if (offset < output_len) {
+                body_len = offset - FLV_TAG_HEAD_LEN - FLV_PRE_TAG_LEN;
+                output[1] = (uint8_t)(body_len >> 16); //data len
+                output[2] = (uint8_t)(body_len >> 8); //data len
+                output[3] = (uint8_t)(body_len); //data len
             }
-            int val = RTMP_Write(rtmp, output, output_len);
+
+
+            if (g_file_handle) {
+                fwrite(output, offset, 1, g_file_handle);
+            }
+            int val = RTMP_Write(rtmp, output, offset);
             //RTMP Send out
             free(output);
             return val;
@@ -719,17 +727,24 @@ int rtmp_sender_write_video_frame(uint8_t *data,
             //no need set pre_tag_size ,RTMP NO NEED
 
             //offset += nal_len;
-            uint32_t fff = body_len + FLV_TAG_HEAD_LEN;
+            uint32_t fff = offset;
             output[offset++] = (uint8_t)(fff >> 24); //data len
             output[offset++] = (uint8_t)(fff >> 16); //data len
             output[offset++] = (uint8_t)(fff >> 8); //data len
             output[offset++] = (uint8_t)(fff); //data len
 
+            if (offset < output_len) {
+                body_len = offset - FLV_TAG_HEAD_LEN - FLV_PRE_TAG_LEN;
+                output[1] = (uint8_t)(body_len >> 16); //data len
+                output[2] = (uint8_t)(body_len >> 8); //data len
+                output[3] = (uint8_t)(body_len); //data len
+            }
+
 
             if (g_file_handle) {
-                fwrite(output, output_len, 1, g_file_handle);
+                fwrite(output, offset, 1, g_file_handle);
             }
-            int result = RTMP_Write(rtmp, output, output_len);
+            int result = RTMP_Write(rtmp, output, offset);
 
             //RTMP Send out
             free(output);
