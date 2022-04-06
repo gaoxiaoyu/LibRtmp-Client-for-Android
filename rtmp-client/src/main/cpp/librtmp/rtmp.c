@@ -73,6 +73,7 @@ static const int packetSize[] = { 12, 8, 4, 1 };
 
 int RTMP_ctrlC;
 
+
 const char RTMPProtocolStrings[][7] = {
   "RTMP",
   "RTMPT",
@@ -341,6 +342,7 @@ RTMP_Init(RTMP *r)
   r->m_fVideoCodecs = 252.0;
   r->Link.receiveTimeoutInMs = 10000;
   r->Link.swfAge = 30;
+
 }
 
 void
@@ -5143,7 +5145,10 @@ static const AVal av_setDataFrame = AVC("@setDataFrame");
 int
 RTMP_Write(RTMP *r, const char *buf, int size)
 {
+    RTMP_LogSetLevel(RTMP_LOGDEBUG2);
   RTMPPacket_Dump(r);
+    RTMP_LogSetLevel(RTMP_LOGINFO);
+
   RTMPPacket *pkt = &r->m_write;
   char *pend, *enc;
   int s2 = size, ret, num;
