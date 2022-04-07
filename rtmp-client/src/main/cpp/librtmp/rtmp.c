@@ -3944,7 +3944,7 @@ RTMP_SendPacket(RTMP *r, RTMPPacket *packet, int queue)
   int nSize;
   int hSize, cSize;
   char *header, *hptr, *hend, hbuf[RTMP_MAX_HEADER_SIZE], c;
-  uint32_t t;
+  uint32_t t = 0;
   char *buffer, *tbuf = NULL, *toff = NULL;
   int nChunkSize;
   int tlen;
@@ -3988,7 +3988,11 @@ RTMP_SendPacket(RTMP *r, RTMPPacket *packet, int queue)
 
   nSize = packetSize[packet->m_headerType];
   hSize = nSize; cSize = 0;
-  t = packet->m_nTimeStamp - last;
+  if (packet->m_nTimeStamp > last)
+  {
+      t = packet->m_nTimeStamp - last;
+  }
+
 
   if (packet->m_body)
     {
@@ -5147,9 +5151,6 @@ static const AVal av_setDataFrame = AVC("@setDataFrame");
 int
 RTMP_Write(RTMP *r, const char *buf, int size)
 {
-  RTMPPacket_Dump(r);
-
-
   RTMPPacket *pkt = &r->m_write;
   char *pend, *enc;
   int s2 = size, ret, num;
@@ -5187,7 +5188,7 @@ RTMP_Write(RTMP *r, const char *buf, int size)
 	    {
 	      pkt->m_headerType = RTMP_PACKET_SIZE_LARGE;
 	      if (pkt->m_packetType == RTMP_PACKET_TYPE_INFO)
-		pkt->m_nBodySize += 16;
+		   pkt->m_nBodySize += 16;
 	    }
 	  else
 	    {
