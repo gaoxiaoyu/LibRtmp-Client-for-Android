@@ -342,6 +342,8 @@ RTMP_Init(RTMP *r)
   r->m_fVideoCodecs = 252.0;
   r->Link.receiveTimeoutInMs = 10000;
   r->Link.swfAge = 30;
+  RTMP_LogSetLevel(RTMP_LOGALL);
+
 
 }
 
@@ -5145,9 +5147,8 @@ static const AVal av_setDataFrame = AVC("@setDataFrame");
 int
 RTMP_Write(RTMP *r, const char *buf, int size)
 {
-    RTMP_LogSetLevel(RTMP_LOGDEBUG2);
   RTMPPacket_Dump(r);
-    RTMP_LogSetLevel(RTMP_LOGINFO);
+
 
   RTMPPacket *pkt = &r->m_write;
   char *pend, *enc;
