@@ -3949,6 +3949,8 @@ RTMP_SendPacket(RTMP *r, RTMPPacket *packet, int queue)
   int nChunkSize;
   int tlen;
 
+  RTMPPacket_Dump(packet);
+
   if (packet->m_nChannel >= r->m_channelsAllocatedOut)
     {
       int n = packet->m_nChannel + 10;
