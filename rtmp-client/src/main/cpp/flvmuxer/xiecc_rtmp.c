@@ -258,10 +258,20 @@ int rtmp_sender_write_audio_frame(uint8_t *data,
     uint32_t body_len;
     uint32_t output_len;
     char *output ;
+    char str[128];
+
+    if (audio_config_ok == false)
+    {
+        for (int i = 0; i < size && i < 128; i++) {
+            sprintf(str, ",%d", data[i]);
+        }
+        LOGD("rtmp_sender_write_audio_frame,data input=%s",str);
+
+    }
 
     //Audio OUTPUT
     offset = 0;
-    LOGD("rtmp_sender_write_audio_frame,input size=%d, dts_us=%llu,audio_ts=%lu",size,dts_us,audio_ts);
+    LOGD("rtmp_sender_write_audio_frame,input size=%d, dts_us=%llu,audio_ts=%lu,data[0]=%d,data[1]=%d",size,dts_us,audio_ts,data[0],data[1]);
 
     if (audio_config_ok == false) {
         // first packet is two bytes AudioSpecificConfig
@@ -293,6 +303,8 @@ int rtmp_sender_write_audio_frame(uint8_t *data,
         output[offset++] = data[1]; //((rtmp_xiecc->config.sample_frequency_index & 0x01) << 7) \
                            //| (rtmp_xiecc->config.channel_configuration << 3) ;
         //no need to set pre_tag_size
+        LOGD("rtmp_sender_write_audio_frame,asc[0-1]:",data[0],data[1]);
+
 
         uint32_t fff = body_len + FLV_TAG_HEAD_LEN;
         output[offset++] = (uint8_t)(fff >> 24); //data len
