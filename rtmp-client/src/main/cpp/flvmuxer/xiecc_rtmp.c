@@ -155,6 +155,7 @@ int rtmp_open_for_write(const char *url, uint32_t video_width, uint32_t video_he
 
     if (ret != RTMP_SUCCESS) {
         RTMP_Free(rtmp);
+        rtmp = NULL;
         return ret;
     }
 
@@ -164,11 +165,14 @@ int rtmp_open_for_write(const char *url, uint32_t video_width, uint32_t video_he
     ret = RTMP_Connect(rtmp, NULL);
     if (ret != RTMP_SUCCESS) {
         RTMP_Free(rtmp);
+        rtmp = NULL;
         return ret;
     }
     ret = RTMP_ConnectStream(rtmp, 0);
 
     if (ret != RTMP_SUCCESS) {
+        RTMP_Free(rtmp);
+        rtmp = NULL;
         return RTMP_ERROR_OPEN_CONNECT_STREAM;
     }
 
