@@ -32,7 +32,7 @@ static const AVal av_record = AVC("record");
 
 
 
-RTMP *rtmp;
+RTMP *rtmp = NULL;
 
 static FILE *g_file_handle = NULL;
 static uint64_t g_time_begin;

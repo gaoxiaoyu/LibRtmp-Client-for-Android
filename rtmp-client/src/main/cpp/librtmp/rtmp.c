@@ -320,6 +320,7 @@ void
 RTMP_Free(RTMP *r)
 {
   free(r);
+  r = NULL;
 }
 
 void
