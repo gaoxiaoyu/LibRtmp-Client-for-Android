@@ -32,7 +32,7 @@
 
 #include <android/log.h>
 #define TAG "LIB-RTMP-Client"
-#define LOGD(...) __android_log_print(ANDROID_LOG_ERROR, TAG, __VA_ARGS__)
+#define LOGI(...) __android_log_print(ANDROID_LOG_DEBUG, TAG, __VA_ARGS__)
 
 
 #define MAX_PRINT_LEN	2048
@@ -68,7 +68,7 @@ static void rtmp_log_default(int level, const char *format, va_list vl)
 			neednl = 0;
 		}
 		fprintf(fmsg, "%s: %s\n", levels[level], str);
-        LOGD("%s", fmsg);
+        LOGI("%s", fmsg);
 #ifdef _DEBUG
 		fflush(fmsg);
 #endif
@@ -100,6 +100,7 @@ void RTMP_Log(int level, const char *format, ...)
 	va_list args;
 	va_start(args, format);
 	cb(level, format, args);
+    LOGI(format, args);
 	va_end(args);
 }
 
