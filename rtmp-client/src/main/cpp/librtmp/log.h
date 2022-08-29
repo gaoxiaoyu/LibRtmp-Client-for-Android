@@ -27,6 +27,7 @@
 #include <stdio.h>
 #include <stdarg.h>
 #include <stdint.h>
+#include <android/log.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -37,6 +38,9 @@ extern "C" {
 #ifdef _DEBUG
 #undef NODEBUG
 #endif
+
+#define TAG "LIB-RTMP-Client"
+#define LOGI(...) __android_log_print(ANDROID_LOG_DEBUG, TAG, __VA_ARGS__)
 
 typedef enum
 { RTMP_LOGCRIT=0, RTMP_LOGERROR, RTMP_LOGWARNING, RTMP_LOGINFO,

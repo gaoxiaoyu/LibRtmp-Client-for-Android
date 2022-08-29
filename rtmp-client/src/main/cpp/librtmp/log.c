@@ -30,9 +30,7 @@
 #include "rtmp_sys.h"
 #include "log.h"
 
-#include <android/log.h>
-#define TAG "LIB-RTMP-Client"
-#define LOGI(...) __android_log_print(ANDROID_LOG_DEBUG, TAG, __VA_ARGS__)
+
 
 
 #define MAX_PRINT_LEN	2048
@@ -56,6 +54,7 @@ static void rtmp_log_default(int level, const char *format, va_list vl)
 
 	vsnprintf(str, MAX_PRINT_LEN-1, format, vl);
 
+
 	/* Filter out 'no-name' */
 	if ( RTMP_debuglevel<RTMP_LOGALL && strstr(str, "no-name" ) != NULL )
 		return;
@@ -68,7 +67,6 @@ static void rtmp_log_default(int level, const char *format, va_list vl)
 			neednl = 0;
 		}
 		fprintf(fmsg, "%s: %s\n", levels[level], str);
-        LOGI("%s", fmsg);
 #ifdef _DEBUG
 		fflush(fmsg);
 #endif
@@ -97,7 +95,7 @@ RTMP_LogLevel RTMP_LogGetLevel()
 
 void RTMP_Log(int level, const char *format, ...)
 {
-	va_list args;
+    va_list args;
 	va_start(args, format);
 	cb(level, format, args);
     LOGI(format, args);
