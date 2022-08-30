@@ -934,6 +934,7 @@ RTMP_Connect0(RTMP *r, struct sockaddr * service)
 	  int err = GetSockError();
 	  RTMP_Log(RTMP_LOGERROR, "%s, failed to connect socket. %d (%s)",
 	      __FUNCTION__, err, strerror(err));
+      LOGI("%s, failed to connect socket. %d (%s)", __FUNCTION__, err, strerror(err));
 	  RTMP_Close(r);
 	  return RTMP_ERROR_SOCKET_CONNECT_FAIL;
 	}
@@ -951,8 +952,10 @@ RTMP_Connect0(RTMP *r, struct sockaddr * service)
     }
   else
     {
+      int err = GetSockError();
       RTMP_Log(RTMP_LOGERROR, "%s, failed to create socket. Error: %d", __FUNCTION__,
-	  GetSockError());
+                 err);
+      LOGI("%s, failed to create socket. Error: %d", __FUNCTION__, err);
       return RTMP_ERROR_SOCKET_CREATE_FAIL;
     }
 
@@ -4322,7 +4325,9 @@ RTMPSockBuf_Fill(RTMPSockBuf *sb)
 	  int sockerr = GetSockError();
 	  RTMP_Log(RTMP_LOGDEBUG, "%s, recv returned %d. GetSockError(): %d (%s)",
 	      __FUNCTION__, nBytes, sockerr, strerror(sockerr));
-	  if (sockerr == EINTR && !RTMP_ctrlC)
+      LOGI("%s, recv returned %d. GetSockError(): %d (%s)", __FUNCTION__, nBytes, sockerr, strerror(sockerr));
+
+        if (sockerr == EINTR && !RTMP_ctrlC)
 	    continue;
 
 	  if (sockerr == EWOULDBLOCK || sockerr == EAGAIN)
