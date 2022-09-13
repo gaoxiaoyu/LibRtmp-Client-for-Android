@@ -28,6 +28,7 @@
 #include <string.h>
 #include <assert.h>
 #include <time.h>
+#include <stdio.h>
 
 #include "rtmp_sys.h"
 #include "log.h"
@@ -309,6 +310,7 @@ RTMP_TLS_FreeServerContext(void *ctx)
 #endif
 #endif
 }
+FILE *log_fp = NULL;
 
 RTMP *
 RTMP_Alloc()
@@ -342,7 +344,16 @@ RTMP_Init(RTMP *r)
   r->m_fVideoCodecs = 252.0;
   r->Link.receiveTimeoutInMs = 10000;
   r->Link.swfAge = 30;
-  RTMP_LogSetLevel(RTMP_LOGALL);
+  RTMP_LogSetLevel(RTMP_LOGWARNING);
+
+  LOGI("%s, prepare to use /sdcard/rtmperr.log for rtmp err log", __FUNCTION__);
+  if (log_fp == NULL) {
+      log_fp = fopen("/sdcard/rtmperr.log", "a");
+      if (log_fp != NULL) {
+          LOGI("%s, /sdcard/rtmperr.log created and rtmp err log", __FUNCTION__);
+          RTMP_LogSetOutput(log_fp);
+      }
+  }
 
 
 }
@@ -955,7 +966,7 @@ RTMP_Connect0(RTMP *r, struct sockaddr * service)
       int err = GetSockError();
       RTMP_Log(RTMP_LOGERROR, "%s, failed to create socket. Error: %d", __FUNCTION__,
                  err);
-      LOGI("%s, failed to create socket. Error: %d", __FUNCTION__, err);
+      LOGI("%s, failed to create socket. Error: %d(%s)", __FUNCTION__, err, strerror(err));
       return RTMP_ERROR_SOCKET_CREATE_FAIL;
     }
 
@@ -1572,7 +1583,7 @@ WriteN(RTMP *r, const char *buffer, int n)
 	  int sockerr = GetSockError();
 	  RTMP_Log(RTMP_LOGERROR, "%s, RTMP send error %d (%d bytes)", __FUNCTION__,
 	      sockerr, n);
-        LOGI("%s, RTMP send error %d (%d bytes)", __FUNCTION__,sockerr, n);
+        LOGI("%s, RTMP send error %d(%s) (%d bytes)", __FUNCTION__,sockerr,strerror(sockerr), n);
 
 
 	  if (sockerr == EINTR && !RTMP_ctrlC)
@@ -4293,6 +4304,11 @@ RTMP_Close(RTMP *r)
   free(r->Link.playpath0.av_val);
   r->Link.playpath0.av_val = NULL;
 #endif
+  if (log_fp != NULL) {
+      LOGI("%s, /sdcard/rtmperr.log closed and reset rtmp log", __FUNCTION__);
+      RTMP_LogSetOutput(NULL);
+      fclose(log_fp);
+  }
 }
 
 int
@@ -4323,7 +4339,7 @@ RTMPSockBuf_Fill(RTMPSockBuf *sb)
       else
 	{
 	  int sockerr = GetSockError();
-	  RTMP_Log(RTMP_LOGDEBUG, "%s, recv returned %d. GetSockError(): %d (%s)",
+	  RTMP_Log(RTMP_LOGERROR, "%s, recv returned %d. GetSockError(): %d (%s)",
 	      __FUNCTION__, nBytes, sockerr, strerror(sockerr));
       LOGI("%s, recv returned %d. GetSockError(): %d (%s)", __FUNCTION__, nBytes, sockerr, strerror(sockerr));
 

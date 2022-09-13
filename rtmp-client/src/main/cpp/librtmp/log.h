@@ -39,7 +39,7 @@ extern "C" {
 #undef NODEBUG
 #endif
 
-#define TAG "LIB-RTMP-Client"
+#define TAG "rtmp-muxer-err"
 #define LOGI(...) __android_log_print(ANDROID_LOG_DEBUG, TAG, __VA_ARGS__)
 
 typedef enum
