@@ -348,12 +348,21 @@ RTMP_Init(RTMP *r)
 
   LOGI("%s, prepare to use /sdcard/rtmperr.log for rtmp err log", __FUNCTION__);
   if (log_fp == NULL) {
-      log_fp = fopen("/sdcard/rtmperr.log", "a");
+      log_fp = fopen("/sdcard/rtmperr.log", "ab+");
       if (log_fp != NULL) {
           LOGI("%s, /sdcard/rtmperr.log created and rtmp err log", __FUNCTION__);
           RTMP_LogSetOutput(log_fp);
       }
   }
+
+  time_t t;
+  char *ch ;
+  time(&t);
+  ch = ctime(&t) ;
+  RTMP_Log(RTMP_LOGWARNING, "%s, warn log, rtmp log started at %s", __FUNCTION__, ch);
+  RTMP_Log(RTMP_LOGERROR, "%s, err log, rtmp log started at %s", __FUNCTION__, ch);
+
+
 
 
 }
@@ -4308,6 +4317,7 @@ RTMP_Close(RTMP *r)
       LOGI("%s, /sdcard/rtmperr.log closed and reset rtmp log", __FUNCTION__);
       RTMP_LogSetOutput(NULL);
       fclose(log_fp);
+      log_fp=NULL;
   }
 }
 
