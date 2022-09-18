@@ -53,6 +53,7 @@ typedef void (RTMP_LogCallback)(int level, const char *fmt, va_list);
 
 void RTMP_LogSetCallback(RTMP_LogCallback *cb);
 void RTMP_LogSetOutput(FILE *file);
+void get_timestamp(char *buffer);
 #ifdef __GNUC__
 void RTMP_LogPrintf(const char *format, ...) __attribute__ ((__format__ (__printf__, 1, 2)));
 void RTMP_LogStatus(const char *format, ...) __attribute__ ((__format__ (__printf__, 1, 2)));

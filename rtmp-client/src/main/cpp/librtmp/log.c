@@ -29,7 +29,8 @@
 
 #include "rtmp_sys.h"
 #include "log.h"
-
+#include <time.h>
+#include <sys/time.h>
 
 
 #define _DEBUG
@@ -66,12 +67,16 @@ static void rtmp_log_default(int level, const char *format, va_list vl)
 			putc('\n', fmsg);
 			neednl = 0;
 		}
-		fprintf(fmsg, "%s: %s\n", levels[level], str);
+        char time[32] = {0};
+        get_timestamp(time);
+
+        fprintf(fmsg, "%s %s: %s\n",time, levels[level], str);
 #ifdef _DEBUG
 		fflush(fmsg);
 #endif
 	}
 }
+
 
 void RTMP_LogSetOutput(FILE *file)
 {
@@ -221,4 +226,29 @@ void RTMP_LogStatus(const char *format, ...)
 	fprintf(fmsg, "%s", str);
 	fflush(fmsg);
 	neednl = 1;
+}
+
+void get_timestamp(char *buffer)
+{
+	time_t t;
+	struct tm *p;
+	//struct timeval(0, 92, 197);
+    //struct timeval;
+    struct timeval tv;
+
+    int len;
+	int millsec;
+
+	t = time(NULL);
+	p = localtime(&t);
+
+	gettimeofday(&tv, NULL);
+	millsec = (int)(tv.tv_usec / 1000);
+
+	/* 时间格式：[2011-11-15 12:47:34:888] */
+	len = snprintf(buffer, 32, "[%04d-%02d-%02d %02d:%02d:%02d:%03d] ",
+				   p->tm_year+1900, p->tm_mon+1,
+				   p->tm_mday, p->tm_hour, p->tm_min, p->tm_sec, millsec);
+
+	buffer[len] = '\0';
 }

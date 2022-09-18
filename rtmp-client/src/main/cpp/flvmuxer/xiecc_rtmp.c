@@ -147,28 +147,39 @@ static uint8_t gen_audio_tag_header()
 int rtmp_open_for_write(const char *url, uint32_t video_width, uint32_t video_height) {
     rtmp = RTMP_Alloc();
     if (rtmp == NULL) {
+        RTMP_Log(RTMP_LOGCRIT, "%s:%d, %s, RTMP_Alloc ret NULL\n", __FILE__, __LINE__, __FUNCTION__);
+
         return RTMP_ERROR_OPEN_ALLOC;
     }
 
     RTMP_Init(rtmp);
     RTMPResult ret = RTMP_SetupURL(rtmp, url);
+    RTMP_Log(RTMP_LOGCRIT, "%s:%d, %s, rtmp_open_for_write url:%s ret %d\n", __FILE__, __LINE__, __FUNCTION__, url, ret);
+
+
 
     if (ret != RTMP_SUCCESS) {
         RTMP_Free(rtmp);
+        RTMP_Log(RTMP_LOGCRIT, "%s:%d, %s, RTMP_Free done\n", __FILE__, __LINE__, __FUNCTION__);
+
         rtmp = NULL;
         return ret;
     }
 
     RTMP_EnableWrite(rtmp);
+    RTMP_Log(RTMP_LOGCRIT, "%s:%d, %s, RTMP_EnableWrite done\n", __FILE__, __LINE__, __FUNCTION__);
 
 
     ret = RTMP_Connect(rtmp, NULL);
+    RTMP_Log(RTMP_LOGCRIT, "%s:%d, %s, RTMP_Connect ret %d\n", __FILE__, __LINE__, __FUNCTION__, ret);
+
     if (ret != RTMP_SUCCESS) {
         RTMP_Free(rtmp);
         rtmp = NULL;
         return ret;
     }
     ret = RTMP_ConnectStream(rtmp, 0);
+    RTMP_Log(RTMP_LOGCRIT, "%s:%d, %s, RTMP_ConnectStream ret %d\n", __FILE__, __LINE__, __FUNCTION__, ret);
 
     if (ret != RTMP_SUCCESS) {
         RTMP_Free(rtmp);
@@ -215,7 +226,9 @@ int rtmp_open_for_write(const char *url, uint32_t video_width, uint32_t video_he
 
         memcpy(send_buffer + offset, buffer, body_len);
 
-        return RTMP_Write(rtmp, send_buffer, output_len);
+        ret= RTMP_Write(rtmp, send_buffer, output_len);
+        RTMP_Log(RTMP_LOGCRIT, "%s:%d, %s, RTMP_Write(len %d)ret %d\n", __FILE__, __LINE__, __FUNCTION__, output_len, ret);
+        return ret;
     }
     return RTMP_ERROR_CONNECTION_LOST;
 }
@@ -276,6 +289,8 @@ int rtmp_sender_write_audio_frame(uint8_t *data,
     //Audio OUTPUT
     offset = 0;
     LOGD("rtmp_sender_write_audio_frame,input size=%d, dts_us=%llu,audio_ts=%lu,data[0]=%d,data[1]=%d",size,dts_us,audio_ts,data[0],data[1]);
+    RTMP_Log(RTMP_LOGCRIT, "%s:%d, %s, rtmp_sender_write_audio_frame(size %d, dts_us %llu,audio_ts %lu)\n", __FILE__, __LINE__, __FUNCTION__, size,dts_us,audio_ts);
+
 
     if (audio_config_ok == false) {
         // first packet is two bytes AudioSpecificConfig
@@ -366,6 +381,7 @@ int rtmp_sender_write_audio_frame(uint8_t *data,
         val = RTMP_Write(rtmp, output, output_len);
         free(output);
     }
+    RTMP_Log(RTMP_LOGCRIT, "%s:%d, %s, rtmp_sender_write_audio_frame(size %d, dts_us %llu,audio_ts %lu) ret %d\n", __FILE__, __LINE__, __FUNCTION__, size,dts_us,audio_ts, val);
     return val;
 }
 
@@ -537,7 +553,7 @@ int rtmp_sender_write_video_frame(uint8_t *data,
     }
 
     LOGD("rtmp_sender_write_video_frame,input total=%d, dts_us=%llu,ts=%lu",total,dts_us,ts);
-
+    RTMP_Log(RTMP_LOGCRIT, "%s:%d, %s, rtmp_sender_write_video_frame(size %d, dts_us %llu,abs_ts %lu, key %d)\n", __FILE__, __LINE__, __FUNCTION__, total,dts_us,abs_ts);
     while (nal != NULL) {
 
         if ((nal[0] & 0x1f) == 0x07)  { // it can be 27,47,67
@@ -771,6 +787,7 @@ int rtmp_sender_write_video_frame(uint8_t *data,
             val += result;
         }
         else {
+            RTMP_Log(RTMP_LOGERROR, "%s:%d, %s, rtmp_sender_write_video_frame err, unexpected nal type %d\n", __FILE__, __LINE__, __FUNCTION__, (nal[0] & 0x1f));
             LOGD("unexpected nal type %d" , (nal[0] & 0x1f));
         }
 

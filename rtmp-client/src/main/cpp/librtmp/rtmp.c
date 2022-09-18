@@ -321,7 +321,15 @@ RTMP_Alloc()
 void
 RTMP_Free(RTMP *r)
 {
+   if (log_fp != NULL) {
+        LOGI("%s, /sdcard/rtmperr.log closed and reset rtmp log", __FUNCTION__);
+       RTMP_Log(RTMP_LOGCRIT, "%s:%d, %s, RTMP_Free close log\n", __FILE__, __LINE__, __FUNCTION__);
+       RTMP_LogSetOutput(NULL);
+       fclose(log_fp);
+       log_fp=NULL;
+   }
   free(r);
+
 }
 
 void
@@ -331,6 +339,18 @@ RTMP_Init(RTMP *r)
   if (!RTMP_TLS_ctx)
     RTMP_TLS_Init();
 #endif
+    RTMP_LogSetLevel(RTMP_LOGWARNING);
+    LOGI("%s, prepare to use /sdcard/rtmperr.log for rtmp err log", __FUNCTION__);
+    if (log_fp == NULL) {
+        log_fp = fopen("/sdcard/rtmperr.log", "ab+");
+        if (log_fp != NULL) {
+            LOGI("%s, /sdcard/rtmperr.log created and rtmp err log", __FUNCTION__);
+            RTMP_LogSetOutput(log_fp);
+        }
+    }
+  RTMP_Log(RTMP_LOGWARNING, "\"%s:%d, %s, warn log, rtmp log started",__FILE__, __LINE__, __FUNCTION__);
+  RTMP_Log(RTMP_LOGERROR, "%s:%d, %s, err log, rtmp log started at %s", __FILE__, __LINE__, __FUNCTION__);
+
 
   memset(r, 0, sizeof(RTMP));
   r->m_sb.sb_socket = -1;
@@ -344,26 +364,8 @@ RTMP_Init(RTMP *r)
   r->m_fVideoCodecs = 252.0;
   r->Link.receiveTimeoutInMs = 10000;
   r->Link.swfAge = 30;
-  RTMP_LogSetLevel(RTMP_LOGWARNING);
 
-  LOGI("%s, prepare to use /sdcard/rtmperr.log for rtmp err log", __FUNCTION__);
-  if (log_fp == NULL) {
-      log_fp = fopen("/sdcard/rtmperr.log", "ab+");
-      if (log_fp != NULL) {
-          LOGI("%s, /sdcard/rtmperr.log created and rtmp err log", __FUNCTION__);
-          RTMP_LogSetOutput(log_fp);
-      }
-  }
-
-  time_t t;
-  char *ch ;
-  time(&t);
-  ch = ctime(&t) ;
-  RTMP_Log(RTMP_LOGWARNING, "%s, warn log, rtmp log started at %s", __FUNCTION__, ch);
-  RTMP_Log(RTMP_LOGERROR, "%s, err log, rtmp log started at %s", __FUNCTION__, ch);
-
-
-
+  RTMP_Log(RTMP_LOGCRIT, "%s:%d, %s, init rtmp", __FILE__, __LINE__, __FUNCTION__);
 
 }
 
@@ -790,7 +792,8 @@ RTMPResult RTMP_SetupURL(RTMP *r, char *url)
   	&port, &r->Link.playpath0, &r->Link.app);
   if (ret != RTMP_SUCCESS)
     {
-      return ret;
+        RTMP_Log(RTMP_LOGERROR, "%s:%d, %s, RTMP_ParseURL ret %d\n", __FILE__, __LINE__, __FUNCTION__, ret);
+        return ret;
     }
   r->Link.port = port;
   r->Link.playpath = r->Link.playpath0;
@@ -838,6 +841,7 @@ RTMPResult RTMP_SetupURL(RTMP *r, char *url)
 
     ret = RTMP_SetOpt(r, &opt, &arg);
     if (ret != RTMP_SUCCESS)
+      RTMP_Log(RTMP_LOGERROR, "%s:%d, %s, RTMP_SetOpt ret %d\n", __FILE__, __LINE__, __FUNCTION__, ret);
       return ret;
   }
 
@@ -1954,8 +1958,10 @@ SendFCUnpublish(RTMP *r)
   enc = AMF_EncodeNumber(enc, pend, ++r->m_numInvokes);
   *enc++ = AMF_NULL;
   enc = AMF_EncodeString(enc, pend, &r->Link.playpath);
-  if (!enc)
-    return FALSE;
+  if (!enc) {
+      RTMP_Log(RTMP_LOGCRIT, "%s:%d, %s, AMF_EncodeString err\n", __FILE__, __LINE__, __FUNCTION__);
+      return FALSE;
+  }
 
   packet.m_nBodySize = enc - packet.m_body;
 
@@ -4194,17 +4200,23 @@ void
 RTMP_Close(RTMP *r)
 {
   int i;
-
-  if (RTMP_IsConnected(r))
+  RTMPResult ret;
+    if (RTMP_IsConnected(r))
     {
       if (r->m_stream_id > 0)
-        {
+      {
 	  i = r->m_stream_id;
 	  r->m_stream_id = 0;
-          if ((r->Link.protocol & RTMP_FEATURE_WRITE))
-	    SendFCUnpublish(r);
-	  SendDeleteStream(r, i);
-	}
+      if ((r->Link.protocol & RTMP_FEATURE_WRITE)) {
+          ret = SendFCUnpublish(r);
+          RTMP_Log(RTMP_LOGCRIT, "%s:%d, %s, SendFCUnpublish ret %d\n", __FILE__, __LINE__, __FUNCTION__, ret);
+      }
+
+
+          ret = SendDeleteStream(r, i);
+          RTMP_Log(RTMP_LOGCRIT, "%s:%d, %s, SendDeleteStream ret %d\n", __FILE__, __LINE__, __FUNCTION__, ret);
+      }
+
       if (r->m_clientID.av_val)
         {
 	  HTTP_Post(r, RTMPT_CLOSE, "", 1);
@@ -4212,7 +4224,9 @@ RTMP_Close(RTMP *r)
 	  r->m_clientID.av_val = NULL;
 	  r->m_clientID.av_len = 0;
 	}
-      RTMPSockBuf_Close(&r->m_sb);
+        ret = RTMPSockBuf_Close(&r->m_sb);
+        RTMP_Log(RTMP_LOGCRIT, "%s:%d, %s, RTMPSockBuf_Close ret %d\n", __FILE__, __LINE__, __FUNCTION__, ret);
+
     }
 
   r->m_stream_id = -1;
@@ -4313,12 +4327,6 @@ RTMP_Close(RTMP *r)
   free(r->Link.playpath0.av_val);
   r->Link.playpath0.av_val = NULL;
 #endif
-  if (log_fp != NULL) {
-      LOGI("%s, /sdcard/rtmperr.log closed and reset rtmp log", __FUNCTION__);
-      RTMP_LogSetOutput(NULL);
-      fclose(log_fp);
-      log_fp=NULL;
-  }
 }
 
 int
@@ -5186,7 +5194,9 @@ static const AVal av_setDataFrame = AVC("@setDataFrame");
 int
 RTMP_Write(RTMP *r, const char *buf, int size)
 {
-  RTMPPacket *pkt = &r->m_write;
+    RTMP_Log(RTMP_LOGERROR, "%s:%d, %s, RTMP_Write(size %d)\n", __FILE__, __LINE__, __FUNCTION__, size);
+
+    RTMPPacket *pkt = &r->m_write;
   char *pend, *enc;
   int s2 = size, ret, num;
 
@@ -5199,7 +5209,9 @@ RTMP_Write(RTMP *r, const char *buf, int size)
 	{
 	  if (size < 11) {
 	    /* FLV pkt too small */
-	    return RTMP_ERROR_PACKET_TOO_SMALL;
+          RTMP_Log(RTMP_LOGERROR, "%s:%d, %s, RTMP_Write err, ret %d\n", __FILE__, __LINE__, __FUNCTION__, RTMP_ERROR_PACKET_TOO_SMALL);
+
+          return RTMP_ERROR_PACKET_TOO_SMALL;
 	  }
 
 	  if (buf[0] == 'F' && buf[1] == 'L' && buf[2] == 'V')
@@ -5232,8 +5244,10 @@ RTMP_Write(RTMP *r, const char *buf, int size)
 
 	  if (!RTMPPacket_Alloc(pkt, pkt->m_nBodySize))
 	    {
-	      RTMP_Log(RTMP_LOGDEBUG, "%s, failed to allocate packet", __FUNCTION__);
-	      return RTMP_ERROR_MEM_ALLOC_FAIL;
+	      RTMP_Log(RTMP_LOGERROR, "%s, failed to allocate packet", __FUNCTION__);
+          RTMP_Log(RTMP_LOGERROR, "%s:%d, %s, RTMPPacket_Alloc err, ret %d\n", __FILE__, __LINE__, __FUNCTION__, RTMP_ERROR_MEM_ALLOC_FAIL);
+
+          return RTMP_ERROR_MEM_ALLOC_FAIL;
 	    }
 	  enc = pkt->m_body;
 	  pend = enc + pkt->m_nBodySize;
@@ -5257,7 +5271,9 @@ RTMP_Write(RTMP *r, const char *buf, int size)
       if (pkt->m_nBytesRead == pkt->m_nBodySize)
 	{
 	  ret = RTMP_SendPacket(r, pkt, FALSE);
-	  RTMPPacket_Free(pkt);
+      RTMP_Log(RTMP_LOGCRIT, "%s:%d, %s, RTMP_SendPacket ret %d\n", __FILE__, __LINE__, __FUNCTION__, ret);
+
+      RTMPPacket_Free(pkt);
 	  pkt->m_nBytesRead = 0;
 	  if (ret != RTMP_SUCCESS) {
 	    return ret;
@@ -5268,5 +5284,6 @@ RTMP_Write(RTMP *r, const char *buf, int size)
 	    break;
 	}
     }
+  RTMP_Log(RTMP_LOGCRIT, "%s:%d, %s, RTMP_Write ret %d\n", __FILE__, __LINE__, __FUNCTION__, size+s2);
   return size+s2;
 }
