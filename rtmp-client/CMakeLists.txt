@@ -10,7 +10,7 @@ cmake_minimum_required(VERSION 3.4.1)
 # You can define multiple libraries, and CMake builds them for you.
 # Gradle automatically packages shared libraries with your APK.
 
-set(CMAK_CXX_FLAGS "-U__FILE__ -D__FILE__='\"$(subst $(dir $<),,$<)\"'")
+
 add_library( # Sets the name of the library.
              rtmp-jni
 
@@ -41,6 +41,7 @@ add_library( # Sets the name of the library.
 include_directories(src/main/cpp/librtmp)
 
 add_definitions(-DNO_CRYPTO)
+set(CMAK_CXX_FLAGS "-U__FILE__ -D__FILE__='\"$(subst $(dir $<),,$<)\"'")
 
 
 # Searches for a specified prebuilt library and stores the path as a

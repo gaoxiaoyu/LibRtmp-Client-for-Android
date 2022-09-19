@@ -159,8 +159,8 @@ int rtmp_open_for_write(const char *url, uint32_t video_width, uint32_t video_he
 
 
     if (ret != RTMP_SUCCESS) {
-        RTMP_Free(rtmp);
         RTMP_Log(RTMP_LOGCRIT, "%s:%d, %s, RTMP_Free done\n", __FILE__, __LINE__, __FUNCTION__);
+        RTMP_Free(rtmp);
 
         rtmp = NULL;
         return ret;
