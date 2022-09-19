@@ -349,7 +349,7 @@ RTMP_Init(RTMP *r)
         }
     }
   RTMP_Log(RTMP_LOGWARNING, "\"%s:%d, %s, warn log, rtmp log started",__FILE__, __LINE__, __FUNCTION__);
-  RTMP_Log(RTMP_LOGERROR, "%s:%d, %s, err log, rtmp log started at %s", __FILE__, __LINE__, __FUNCTION__);
+  RTMP_Log(RTMP_LOGERROR, "%s:%d, %s, err log, rtmp log started", __FILE__, __LINE__, __FUNCTION__);
 
 
   memset(r, 0, sizeof(RTMP));
@@ -977,8 +977,9 @@ RTMP_Connect0(RTMP *r, struct sockaddr * service)
   else
     {
       int err = GetSockError();
-      RTMP_Log(RTMP_LOGERROR, "%s, failed to create socket. Error: %d", __FUNCTION__,
-                 err);
+      RTMP_Log(RTMP_LOGERROR, "%s, failed to create socket. Error: %d (%s)\n", __FUNCTION__,
+                 err, strerror(err));
+
       LOGI("%s, failed to create socket. Error: %d(%s)", __FUNCTION__, err, strerror(err));
       return RTMP_ERROR_SOCKET_CREATE_FAIL;
     }
@@ -992,7 +993,7 @@ RTMP_Connect0(RTMP *r, struct sockaddr * service)
     if (setsockopt
         (r->m_sb.sb_socket, SOL_SOCKET, SO_RCVTIMEO, (char *)&tv, sizeof(tv)))
       {
-        RTMP_Log(RTMP_LOGERROR, "%s, Setting socket timeout to %dms failed!",
+        RTMP_Log(RTMP_LOGERROR, "%s, Setting socket timeout to %dms failed!\n",
 	    __FUNCTION__, r->Link.receiveTimeoutInMs);
       }
   }
@@ -1078,8 +1079,10 @@ RTMP_Connect(RTMP *r, RTMPPacket *cp)
 {
   struct sockaddr_in service;
   RTMPResult ret = RTMP_SUCCESS;
-  if (!r->Link.hostname.av_len)
-    return RTMP_ERROR_URL_MISSING_PROTOCOL;
+  if (!r->Link.hostname.av_len) {
+      RTMP_Log(RTMP_LOGCRIT, "%s:%d, %s, RTMP_Connect ret %d\n", __FILE__, __LINE__, __FUNCTION__, RTMP_ERROR_URL_MISSING_PROTOCOL);
+      return RTMP_ERROR_URL_MISSING_PROTOCOL;
+  }
 
   memset(&service, 0, sizeof(struct sockaddr_in));
   service.sin_family = AF_INET;
@@ -1090,7 +1093,8 @@ RTMP_Connect(RTMP *r, RTMPPacket *cp)
       ret = add_addr_info(&service, &r->Link.sockshost, r->Link.socksport);
       if (ret != RTMP_SUCCESS)
         {
-          return ret;
+            RTMP_Log(RTMP_LOGCRIT, "%s:%d, %s, add_addr_info sockshost ret %d\n", __FILE__, __LINE__, __FUNCTION__, ret);
+            return ret;
         }
     }
   else
@@ -1099,17 +1103,22 @@ RTMP_Connect(RTMP *r, RTMPPacket *cp)
       ret = add_addr_info(&service, &r->Link.hostname, r->Link.port);
       if (ret != RTMP_SUCCESS)
        {
-          return ret;
+           RTMP_Log(RTMP_LOGCRIT, "%s:%d, %s, add_addr_info hostname ret %d\n", __FILE__, __LINE__, __FUNCTION__, ret);
+           return ret;
        }
     }
 
   ret = RTMP_Connect0(r, (struct sockaddr *)&service);
-  if (ret != RTMP_SUCCESS)
-    return ret;
+  if (ret != RTMP_SUCCESS) {
+      RTMP_Log(RTMP_LOGCRIT, "%s:%d, %s, RTMP_Connect0 ret %d\n", __FILE__, __LINE__, __FUNCTION__, ret);
+      return ret;
+  }
 
   r->m_bSendCounter = TRUE;
 
-  return RTMP_Connect1(r, cp);
+  ret = RTMP_Connect1(r, cp);
+  RTMP_Log(RTMP_LOGCRIT, "%s:%d, %s, RTMP_Connect1 ret %d\n", __FILE__, __LINE__, __FUNCTION__, ret);
+  return ret;
 }
 
 static int
@@ -1594,8 +1603,8 @@ WriteN(RTMP *r, const char *buffer, int n)
       if (nBytes < 0)
 	{
 	  int sockerr = GetSockError();
-	  RTMP_Log(RTMP_LOGERROR, "%s, RTMP send error %d (%d bytes)", __FUNCTION__,
-	      sockerr, n);
+	  RTMP_Log(RTMP_LOGERROR, "%s, RTMP send error %d (%s) (%d bytes)", __FUNCTION__,
+	      sockerr, strerror(sockerr), n);
         LOGI("%s, RTMP send error %d(%s) (%d bytes)", __FUNCTION__,sockerr,strerror(sockerr), n);
 
 

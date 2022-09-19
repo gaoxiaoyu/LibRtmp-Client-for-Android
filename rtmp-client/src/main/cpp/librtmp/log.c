@@ -227,7 +227,12 @@ void RTMP_LogStatus(const char *format, ...)
 	fflush(fmsg);
 	neednl = 1;
 }
-
+void get_filename(const char *filename)
+{
+    const char* tmp = strrchr(filename, '/');
+    if (!tmp) tmp = filename;
+    else tmp++;
+}
 void get_timestamp(char *buffer)
 {
 	time_t t;
@@ -252,3 +257,4 @@ void get_timestamp(char *buffer)
 
 	buffer[len] = '\0';
 }
+
