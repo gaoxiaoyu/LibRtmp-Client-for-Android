@@ -315,7 +315,19 @@ FILE *log_fp = NULL;
 RTMP *
 RTMP_Alloc()
 {
-  return calloc(1, sizeof(RTMP));
+    RTMP_LogSetLevel(RTMP_LOGWARNING);
+    LOGI("%s, prepare to use /sdcard/rtmperr.log for rtmp err log", __FUNCTION__);
+    if (log_fp == NULL) {
+        log_fp = fopen("/sdcard/rtmperr.log", "ab+");
+        if (log_fp != NULL) {
+            LOGI("%s, /sdcard/rtmperr.log created and rtmp err log", __FUNCTION__);
+            RTMP_LogSetOutput(log_fp);
+        }
+    }
+    RTMP_Log(RTMP_LOGWARNING, "\"%s:%d, %s, warn log, rtmp log started",__FILE__, __LINE__, __FUNCTION__);
+    RTMP_Log(RTMP_LOGERROR, "%s:%d, %s, err log, rtmp log started", __FILE__, __LINE__, __FUNCTION__);
+
+    return calloc(1, sizeof(RTMP));
 }
 
 void
@@ -339,18 +351,6 @@ RTMP_Init(RTMP *r)
   if (!RTMP_TLS_ctx)
     RTMP_TLS_Init();
 #endif
-    RTMP_LogSetLevel(RTMP_LOGWARNING);
-    LOGI("%s, prepare to use /sdcard/rtmperr.log for rtmp err log", __FUNCTION__);
-    if (log_fp == NULL) {
-        log_fp = fopen("/sdcard/rtmperr.log", "ab+");
-        if (log_fp != NULL) {
-            LOGI("%s, /sdcard/rtmperr.log created and rtmp err log", __FUNCTION__);
-            RTMP_LogSetOutput(log_fp);
-        }
-    }
-  RTMP_Log(RTMP_LOGWARNING, "\"%s:%d, %s, warn log, rtmp log started",__FILE__, __LINE__, __FUNCTION__);
-  RTMP_Log(RTMP_LOGERROR, "%s:%d, %s, err log, rtmp log started", __FILE__, __LINE__, __FUNCTION__);
-
 
   memset(r, 0, sizeof(RTMP));
   r->m_sb.sb_socket = -1;
